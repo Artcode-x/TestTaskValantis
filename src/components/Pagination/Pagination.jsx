@@ -38,7 +38,6 @@ export default function Pagination() {
                     Вперед
                 </S.BtnNext>
             </S.PagesContainer>
-            {/* {showError && <S.ForErrors>{showError}</S.ForErrors>} */}
         </>
     )
 }
