@@ -3,21 +3,6 @@ import MD5test from '../hooks/hooks'
 
 const way = 'https://api.valantis.store:41000'
 
-export async function getAllItems() {
-    const authorizationToken = MD5test()
-    const response = await axios(`${way}`, {
-        method: 'GET',
-        data: {
-            action: 'get_ids',
-            params: { offset: 10, limit: 3 },
-        },
-        headers: {
-            'X-auth': authorizationToken,
-        },
-    })
-    return response.data
-}
-
 export async function filterPrice({ price }) {
     const fromFilterInput = Number(price)
     console.log(fromFilterInput)
