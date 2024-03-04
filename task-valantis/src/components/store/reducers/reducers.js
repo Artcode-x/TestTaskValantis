@@ -2,40 +2,57 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    user: {},
-    products: [],
-    price: null,
+    brand: '',
+    product: '',
+    isFlag: false,
+    pageNumber: 1,
+    totalPageCount: {},
+    currentPageData: [],
+    allData: [],
 }
 
 const reducers = createSlice({
     name: 'reducers',
     initialState,
     reducers: {
-        userUpdate: (state, actions) => {
-            state.user = actions.payload
-            // данные которые будут отпр-ны в sessionStorage - будут хранится только в течении сессии, как только вкладка будет закрыта или браузер - все данные стираются.
-
-            // если исп-ть localStorage - при закрытии браузера, данные останутся там, не сотрутся. Удалить можно вручную в браузере либо с пом-ю js
-
-            // реализация чтобы при обновлении стр-цы не ломалась картинка / не терялись данные о юзере в данном случае
-            sessionStorage.setItem('user', JSON.stringify(actions.payload))
+        setBrand: (state, action) => {
+            state.brand = action.payload
         },
-        // предполагается этот хук запускать всегда при запуске
-        // используем в главной компоненте App
-        // хук достает user из sessionStorage и сразу записывает в стейт?
-        sessionStorageUpdate: (state) => {
-            const user = sessionStorage.getItem('user')
-            if (user) state.user = JSON.parse(user)
+        setProduct: (state, action) => {
+            state.products = action.payload
         },
-        productsUpdate: (state, actions) => {
-            state.products = actions.payload
+        isFlagUpdate: (state, action) => {
+            state.isFlag = action.payload
         },
-        priceUpdate: (state, actions) => {
-            state.price = actions.payload
+        setPageNumber: (state, action) => {
+            state.pageNumber = action.payload
+        },
+        setTotalPageCount: (state, action) => {
+            state.totalPageCount = action.payload
+        },
+        setCurrentPageData: (state) => {
+            const currentItems =
+                state.pageNumber > 1
+                    ? state.pageNumber - 1 * 50
+                    : state.pageNumber - 1
+            state.currentPageData = state.allData.slice(
+                currentItems,
+                50 * state.pageNumber
+            )
+        },
+        setAllData: (state, action) => {
+            state.allData = action.payload
         },
     },
 })
 
-export const { userUpdate, sessionStorageUpdate, productsUpdate, priceUpdate } =
-    reducers.actions
+export const {
+    setBrand,
+    setProduct,
+    isFlagUpdate,
+    setPageNumber,
+    setTotalPageCount,
+    setCurrentPageData,
+    setAllData,
+} = reducers.actions
 export default reducers

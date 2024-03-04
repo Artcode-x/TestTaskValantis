@@ -42,3 +42,24 @@ export const PriceInput = styled.input`
     outline: none;
     display: flex;
 `
+
+export const SearchButton = styled.button`
+    min-width: fit-content;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: #fff;
+    outline: none;
+    transition: background-color 0.4s ease;
+    cursor: pointer;
+
+    &:hover {
+        background-color: burlywood;
+    }
+`
+export const Parent = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+`

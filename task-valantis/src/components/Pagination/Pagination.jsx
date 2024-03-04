@@ -1,44 +1,40 @@
-import React, { 
-   // useState
- } from 'react'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import * as S from './Pagination.styled'
+import {
+    CurrentPageNumberSlector,
+    totalPagesCountSelector,
+} from '../store/selectors/selectors'
+import { setCurrentPageData, setPageNumber } from '../store/reducers/reducers'
 
 export default function Pagination() {
-    // const [disabled, setDisabled] = useState(false)
-    // const [showError, setShowError] = useState()
+    const dispatch = useDispatch()
+    const AllPagesCount = useSelector(totalPagesCountSelector)
+    const currentPage = useSelector(CurrentPageNumberSlector)
 
-    // const requestToApi = async () => {
-    //     try {
-    //         setDisabled(true)
-    //     } catch (error) {
-    //         console.log(error.message)
-    //         setShowError(error.response.status)
-    //     } finally {
-    //         setDisabled(false)
-    //     }
-    // }
-
-    const prev = () => {}
-    const next = () => {}
+    const prev = () => {
+        if (currentPage > 1) {
+            const newCurrentPage = currentPage - 1
+            dispatch(setPageNumber(newCurrentPage))
+            dispatch(setCurrentPageData())
+        }
+    }
+    const next = () => {
+        if (currentPage < AllPagesCount) {
+            const newCurrentPage = currentPage + 1
+            dispatch(setPageNumber(newCurrentPage))
+            dispatch(setCurrentPageData())
+        }
+    }
     return (
         <>
             <S.PagesContainer>
-                <S.BtnPrev
-                    //  disabled={disabled}
-                    type="button"
-                    onClick={prev}
-                >
+                <S.BtnPrev type="button" onClick={prev}>
                     Назад
                 </S.BtnPrev>
 
-                <S.CurrentNumberPageDiv>
-                    1{/* {currentPage} */}
-                </S.CurrentNumberPageDiv>
-                <S.BtnNext
-                    // disabled={disabled}
-                    type="button"
-                    onClick={next}
-                >
+                <S.CurrentNumberPageDiv>{currentPage}</S.CurrentNumberPageDiv>
+                <S.BtnNext type="button" onClick={next}>
                     Вперед
                 </S.BtnNext>
             </S.PagesContainer>
