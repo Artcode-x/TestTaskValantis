@@ -25,10 +25,8 @@ export default function Filter() {
             const respProducts = await getItems(resp.result)
             const UpdRespProducts = respProducts.result
             const result = GetUniqItems(UpdRespProducts, 'product')
-
             const pageForShow = 50
             const resultCountPages = Math.ceil(result.length / pageForShow)
-
             dispatch(setAllData(result))
             dispatch(setTotalPageCount(resultCountPages))
             dispatch(setCurrentPageData())
@@ -45,7 +43,6 @@ export default function Filter() {
             dispatch(isFlagUpdate(true))
             const response = await filterBrand(xbrand)
             const getArrBrands = await getItems(response.result)
-            // const result = GetUniqItems(getArrBrands, 'brand')
             const resultCountPages = ForPagination(getArrBrands)
             dispatch(setAllData(getArrBrands.result))
             dispatch(setTotalPageCount(resultCountPages))
@@ -62,7 +59,6 @@ export default function Filter() {
             dispatch(isFlagUpdate(true))
             const response = await filterProduct(productName)
             const getArrProd = await getItems(response.result)
-            // const result = GetUniqItems(getArrBrands, 'product')
             const resultCountPages = ForPagination(getArrProd)
             dispatch(setAllData(getArrProd.result))
             dispatch(setTotalPageCount(resultCountPages))
