@@ -3,17 +3,16 @@ const CryptoJS = require("crypto-js")
 
 export default function MD5test() {
   // Авто ген пароля авторизации и его шифр в md5
-  //   const formatDate = () => {
-  //     const currentDate = new Date()
-  //     const year = currentDate.getFullYear()
-  //     let month = currentDate.getMonth() + 1
-  //     let day = currentDate.getDate()
-  //     if (month < 10) month = `0${month}`
-  //     if (day < 10) day = `0${day}`
-  //     return [year, month, day].join("")
-  //   }
-  //   const password = `Valantis_${formatDate()}`
-  const password = "Valantis_20240309"
+  const formatDate = () => {
+    const currentDate = new Date()
+    const year = currentDate.getFullYear()
+    let month = currentDate.getMonth() + 1
+    let day = currentDate.getDate()
+    if (month < 10) month = `0${month}`
+    if (day < 10) day = `0${day}`
+    return [year, month, day].join("")
+  }
+  const password = `Valantis_${formatDate()}`
   return CryptoJS.MD5(password).toString()
 }
 
