@@ -68,7 +68,7 @@ export default function Filter() {
         setShowError("Слишком много запросов к серверу, попробуйте позднее")
       }
     } finally {
-      setDisabledValues((prevState) => ({ ...prevState, button1: false }))
+      setDisabledValues((prevState) => ({ ...prevState, button2: false }))
     }
   }
 
