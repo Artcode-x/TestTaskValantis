@@ -12,7 +12,6 @@ export default function Pagination({ renderStart }) {
   const dispatch = useDispatch()
   const currentPage = useSelector(currentPageNumberSelector)
   const allPagesCount = useSelector(totalPagesCountSelector)
-
   const flag = useSelector(ShowOrHideSelector)
 
   const prev = () => {

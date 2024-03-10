@@ -7,7 +7,6 @@ import OurBrands from "../OurBrands/OurBrands"
 
 function ProductList({ isLoading, allData }) {
   const DataFromFilters = useSelector((store) => store.store.currentPageData)
-
   const showArray = useSelector(ShowOrHideSelector)
   const test = useSelector(flagSelector)
 
