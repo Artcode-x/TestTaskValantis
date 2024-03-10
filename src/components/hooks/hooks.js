@@ -33,11 +33,8 @@ export function filter(arr, value) {
 }
 
 export function FilterTypes(arr) {
-  // исключение пустых элементов
   const UniqArr = arr.filter((item) => item !== null)
-  // Сорт по алфавиту
   const alphabetSort = UniqArr.sort()
-  // - дубли
   const result = alphabetSort.filter((el, index) => alphabetSort.indexOf(el) === index)
 
   return result
@@ -48,8 +45,26 @@ export function Uniqs(arr) {
   return result
 }
 
+export function notShowEmptyBrands(arr) {
+  console.log(arr)
+  const UniqArr = arr.filter((item) => item.brand !== null)
+  return UniqArr
+}
+
 export function ForPagination(arrData) {
   const pageForShow = 50
   const resultCountPages = Math.ceil(arrData.result.length / pageForShow)
   return resultCountPages
+}
+
+export function ForP(arr) {
+  const pageForShow = 50
+  const result = Math.ceil(arr.length / pageForShow)
+  return result
+}
+export function removeDuplicateIds(arr) {
+  console.log(arr)
+  const result = arr.filter((item, index) => arr.findIndex((i) => i.id === item.id) === index)
+  console.log(result)
+  return result
 }

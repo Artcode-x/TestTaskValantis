@@ -7,7 +7,7 @@ const initialState = {
   isFlag: false,
   pageNumber: 1,
   totalPageCount: {},
-   currentPageData: [],
+  currentPageData: [],
   allData: [],
   isShowOrHide: false,
 }
@@ -32,14 +32,8 @@ const reducers = createSlice({
       state.totalPageCount = action.payload
     },
     setCurrentPageData: (state) => {
-        const currentItems =
-            state.pageNumber > 1
-                ? state.pageNumber - 1 * 50
-                : state.pageNumber - 1
-        state.currentPageData = state.allData.slice(
-            currentItems,
-            50 * state.pageNumber
-        )
+      const currentItems = state.pageNumber > 1 ? state.pageNumber - 1 * 50 : state.pageNumber - 1
+      state.currentPageData = state.allData.slice(currentItems, 50 * state.pageNumber)
     },
     setAllData: (state, action) => {
       state.allData = action.payload
@@ -56,7 +50,7 @@ export const {
   isFlagUpdate,
   setPageNumber,
   setTotalPageCount,
-   setCurrentPageData,
+  setCurrentPageData,
   setAllData,
   setShowOrHide,
 } = reducers.actions

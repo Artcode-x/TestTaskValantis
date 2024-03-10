@@ -22,8 +22,10 @@ export default function Pagination({ renderStart }) {
       dispatch(setCurrentPageData())
     }
     if (!flag) {
-      renderStart(currentPage - 1)
-      dispatch(setPageNumber(currentPage - 1))
+      if (currentPage > 1) {
+        renderStart(currentPage - 1)
+        dispatch(setPageNumber(currentPage - 1))
+      }
     }
   }
 

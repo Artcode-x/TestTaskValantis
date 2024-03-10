@@ -11,7 +11,14 @@ import {
   setTotalPageCount,
 } from "../store/reducers/reducers"
 import { filterBrand, filterPrice, filterProduct, getFields, getItems } from "../Api/Api"
-import { FilterTypes, ForPagination, GetUniqItems } from "../hooks/hooks"
+import {
+  FilterTypes,
+  ForP,
+  ForPagination,
+  GetUniqItems,
+  notShowEmptyBrands,
+  removeDuplicateIds,
+} from "../hooks/hooks"
 import { currentPageNumberSelector } from "../store/selectors/selectors"
 
 export default function Filter() {
@@ -36,7 +43,7 @@ export default function Filter() {
       setDisabledValues((prevState) => ({ ...prevState, button1: true }))
       const resp = await filterPrice({ price })
       const respPrice = await getItems(resp.result)
-      const UpdRespPrice = respPrice.result
+      const UpdRespPrice = await removeDuplicateIds(respPrice.result)
       const result = GetUniqItems(UpdRespPrice, "product")
       const pageForShow = 50
       const resultCountPages = Math.ceil(result.length / pageForShow)
@@ -44,6 +51,7 @@ export default function Filter() {
       dispatch(setTotalPageCount(resultCountPages))
       dispatch(setCurrentPageData())
     } catch (error) {
+      console.log(error)
       if (error.response.status === 500) {
         setShowError("Слишком много запросов к серверу, попробуйте позднее")
       }
@@ -60,11 +68,14 @@ export default function Filter() {
       const response = await filterBrand(xbrand)
       const getArrBrands = await getItems(response.result)
       const resultCountPages = ForPagination(getArrBrands)
-      dispatch(setAllData(getArrBrands.result))
+      const uniqs = await removeDuplicateIds(getArrBrands.result)
+      dispatch(setAllData(uniqs))
       dispatch(setTotalPageCount(resultCountPages))
       dispatch(setCurrentPageData())
     } catch (error) {
+      console.log(error)
       if (error.response.status === 500) {
+        console.log(error)
         setShowError("Слишком много запросов к серверу, попробуйте позднее")
       }
     } finally {
@@ -79,11 +90,14 @@ export default function Filter() {
       setDisabledValues((prevState) => ({ ...prevState, button3: true }))
       const response = await filterProduct(productName)
       const getArrProd = await getItems(response.result)
-      const resultCountPages = ForPagination(getArrProd)
-      dispatch(setAllData(getArrProd.result))
+      const uniqs = removeDuplicateIds(getArrProd.result)
+      const sort = notShowEmptyBrands(uniqs)
+      const resultCountPages = ForP(sort)
+      dispatch(setAllData(sort))
       dispatch(setTotalPageCount(resultCountPages))
       dispatch(setCurrentPageData())
     } catch (error) {
+      console.log(error)
       if (error.response.status === 500) {
         setShowError("Слишком много запросов к серверу, попробуйте позднее")
       }
@@ -115,7 +129,6 @@ export default function Filter() {
     dispatch(setShowOrHide(true))
     const response = await getFields("brand", curPage)
     const uniq = FilterTypes(response.result)
-    console.log(uniq)
     dispatch(setBrand(uniq))
   }
 

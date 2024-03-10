@@ -22,6 +22,7 @@ function Main() {
         setIsLoading(false)
       })
       .catch((error) => {
+        console.log(error)
         setError("Сервер не смог обработать запрос, попробуйте позднее")
       })
   }
