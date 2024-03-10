@@ -10,8 +10,10 @@ export const brandSelector = (store) => mainSelector(store).brand
 export const prodSelector = (store) => mainSelector(store).product
 export const flagSelector = (store) => mainSelector(store).isFlag
 
-export const totalPagesCountSelector = (store) =>
-    mainSelector(store).totalPageCount
+export const totalPagesCountSelector = (store) => mainSelector(store).totalPageCount
 
-export const CurrentPageNumberSlector = (store) =>
-    mainSelector(store).pageNumber
+export const currentPageNumberSelector = (store) => mainSelector(store).pageNumber
+
+export const allDataSelector = (store) => mainSelector(store).allData
+
+export const ShowOrHideSelector = (store) => mainSelector(store).isShowOrHide
