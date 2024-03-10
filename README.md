@@ -7,7 +7,7 @@ https://artcode-x.github.io/TestTaskValantis/
 Для клонирования репозитория выполните команду:
 
 ```
-git clone https://github.com/Artcode-x/git-search-ts
+git clone https://github.com/Artcode-x/TestTaskValantis
 ```
 
 Перейти в папку проекта и установить зависимости перед запуском:
